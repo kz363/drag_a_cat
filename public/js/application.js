@@ -70,6 +70,8 @@ $(document).ready(function() {
         ready = true;
         console.log("Width = " + width + " || Height = " + height )
         $('#selection').remove();
+        div.unbind('mouseup');
+        div.unbind('mousemove');
       });
 
   });
