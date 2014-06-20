@@ -1,0 +1,21 @@
+body { font-family: sans-serif; }
+
+#container {
+  background:  #ddd;
+  line-height: 300px;
+  text-align:  center;
+  color:  #666;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#selection {
+  position:    absolute;
+  background: transparent;
+  border:     1px dotted black;
+}
+
+#cat {
+  position:    absolute;
+}
