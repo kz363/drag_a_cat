@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var cat = $('#cat');
+  var cat = $('.cat');
   var div = $('#container');
   div.css({
     'width': $(window).width(),
@@ -12,9 +12,12 @@ $(document).ready(function() {
   var new_x = 0;
   var new_y = 0;
   var ready = true;
+  var count = 0;
 
   div.on('mousedown', function(e) {
     e.preventDefault();
+    var width = 0;
+    var height = 0;
     ready = false;
     div.append('<div id="selection"></div>');
     start_x = e.pageX;
@@ -31,10 +34,9 @@ $(document).ready(function() {
       if(ready == false){
         var moving_x = e.pageX;
         var moving_y = e.pageY;
-        var width  = Math.abs(moving_x - start_x);
-        var height = Math.abs(moving_y - start_y);
-        console.log(moving_x);
-        console.log(moving_y);
+        width  = Math.abs(moving_x - start_x);
+        height = Math.abs(moving_y - start_y);
+
         new_x = (moving_x < start_x) ? (start_x - width) : start_x;
         new_y = (moving_y < start_y) ? (start_y - height) : start_y;
 
@@ -43,25 +45,32 @@ $(document).ready(function() {
           'height': height,
           'top': new_y,
           'left': new_x
+        });
+      }
+    });
+
+    div.on('mouseup', function(e) {
+      e.preventDefault();
+      // $('.cat img').remove();
+
+        // cat.css({
+        //   'width': width,
+        //   'height': height,
+        //   'top': new_y,
+        //   'left': new_x
+        // });
+        count++;
+        div.append("<div id='cat"+count+"'><img src=http://placekitten.com/"+width+"/"+height+"></div>");
+        $("#cat"+count).css({
+          'width': width,
+          'height': height,
+          'top': new_y,
+          'left': new_x
+        });
+        ready = true;
+        console.log("Width = " + width + " || Height = " + height )
+        $('#selection').remove();
       });
 
-        div.on('mouseup', function(e) {
-          e.preventDefault();
-          $('#cat img').remove();
-          small_x = start_x < new_x ? start_x : new_x;
-          small_y = start_y < new_y ? start_y : new_y;
-
-          cat.css({
-            'width': width,
-            'height': height,
-            'top': new_y,
-            'left': new_x
-          });
-          cat.append("<img src=http://placekitten.com/"+width+"/"+height+">");
-          ready = true;
-          $('#selection').remove();
-        });
-      }});
-
-});
+  });
 });
